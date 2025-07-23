@@ -13,6 +13,7 @@ pub struct Vehicle {
 
 #[debug_handler]
 pub async fn vehicle_info() -> Json<Vehicle> {
+    println!("A Retrieved Vehicle");
     Json::from(Vehicle {
         maker: "Nissan".to_string(),
         model: "Altima".to_string(),
@@ -31,6 +32,7 @@ pub struct Customer {
 
 #[debug_handler]
 pub async fn customer_get() -> Json<Customer> {
+    println!("A Retrieved Customer");
     Json::from(Customer {
         first_name: "Eruobami".to_string(),
         last_name: "Deborah".to_string(),
