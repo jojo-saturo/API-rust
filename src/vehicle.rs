@@ -23,4 +23,11 @@ pub async fn vehicle_info() -> Json<Vehicle> {
     })
 }
 
-pub async fn vehicle_post() {}
+pub async fn vehicle_post(Json(mut v): Json<Vehicle>) -> Json<Vehicle> {
+    println!(
+        "maker: {0}, model: {1}, year: {2}, color: {3}, price: {4}",
+        v.maker, v.model, v.year, v.color, v.price
+    );
+    v.id = Some(uuid::Uuid::new_v4().to_string());
+    Json::from(v)
+}
