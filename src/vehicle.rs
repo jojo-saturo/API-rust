@@ -22,6 +22,28 @@ pub async fn vehicle_info() -> Json<Vehicle> {
         id: Some(uuid::Uuid::new_v4().to_string()),
     })
 }
+// Customers
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
+pub struct Customer {
+    first_name: String,
+    last_name: String,
+}
+
+#[debug_handler]
+pub async fn customer_get() -> Json<Customer> {
+    Json::from(Customer {
+        first_name: "Eruobami".to_string(),
+        last_name: "Deborah".to_string(),
+    })
+}
+
+pub async fn customer_post(Json(c): Json<Customer>) -> Json<Customer> {
+    println!(
+        "Customer first name: {0}, Customer Last name: {1}",
+        c.first_name, c.last_name
+    );
+    Json::from(c)
+}
 
 pub async fn vehicle_post(Json(mut v): Json<Vehicle>) -> Json<Vehicle> {
     println!(
