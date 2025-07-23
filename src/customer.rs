@@ -5,6 +5,7 @@ use axum::debug_handler;
 pub struct Customer {
     first_name: String,
     last_name: String,
+    id: Option<String>,
 }
 
 #[debug_handler]
@@ -13,13 +14,15 @@ pub async fn customer_get() -> Json<Customer> {
     Json::from(Customer {
         first_name: "Eruobami".to_string(),
         last_name: "Deborah".to_string(),
+        id: Some(uuid::Uuid::new_v4().to_string()),
     })
 }
 
-pub async fn customer_post(Json(c): Json<Customer>) -> Json<Customer> {
+pub async fn customer_post(Json(mut c): Json<Customer>) -> Json<Customer> {
     println!(
         "Customer first name: {0}, Customer Last name: {1}",
         c.first_name, c.last_name
     );
+    c.id = Some(uuid::Uuid::new_v4().to_string());
     Json::from(c)
 }
