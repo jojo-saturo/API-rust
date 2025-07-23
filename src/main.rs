@@ -2,9 +2,11 @@ use axum::{Router, routing::get};
 
 mod vehicle;
 
+mod customer;
+
 use vehicle::{vehicle_info, vehicle_post};
 
-use vehicle::{customer_get, customer_post};
+use customer::{customer_get, customer_post};
 
 #[tokio::main]
 async fn main() {
