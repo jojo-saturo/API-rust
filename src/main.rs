@@ -1,4 +1,8 @@
-use axum::{ debug_handler, Json, routing::get, Router };
+use axum::{Router, routing::get};
+
+mod vehicle;
+
+use vehicle::{vehicle_info, vehicle_post};
 
 #[tokio::main]
 async fn main() {
@@ -12,26 +16,3 @@ async fn main() {
     //3. run the application
     axum::serve(listener, route01).await.unwrap();
 }
-
-#[derive(Debug, serde::Serialize, serde::Deserialize)]
-struct Vehicle {
-    maker: String,
-    model: String,
-    year: i32,
-    color: String,
-    price: String,
-    id: Option<String>,
-}
-#[debug_handler]
-async fn vehicle_info() -> Json<Vehicle> {
-    Json::from(Vehicle {
-        maker: "Nissan".to_string(),
-        model: "Altima".to_string(),
-        year: 2020,
-        color: "Black".to_string(),
-        price: "$20,000".to_string(),
-        id: Some(uuid::Uuid::new_v4().to_string()),
-    })
-}
-
-async fn vehicle_post() {}
